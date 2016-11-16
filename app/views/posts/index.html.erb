@@ -1,0 +1,6 @@
+<%= @posts.count %>
+<h4>Subreddits</h4>
+<% @subreddits.each do |s| %>
+
+    <p><%= link_to s.title, s %></p>
+<% end %>
