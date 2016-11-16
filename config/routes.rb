@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :subreddits, only: [:show, :create, :new] do
-      resources :posts, only: [:new, :create]
+      resources :posts, only: [:show, :index, :new, :create]
   end
 
   root to: 'posts#index'

@@ -12,4 +12,7 @@ class SubredditsControllerTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_response :success
   end
+
+  
+
 end
