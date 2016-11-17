@@ -7,7 +7,7 @@
 <h1>Posts</h1>
 <p>Total Posts: <%= @posts.count %></p>
 <% @posts.each do |p| %>
-    <p><%= link_to p.title, subreddit_post_path(p.subreddit, p) %></p>
+    <p><%=p.id %>. <%= link_to p.title, subreddit_post_path(p.subreddit, p) %></p>
     <p><%= p.body %></p>
     <p> Subreddit: <%= link_to p.subreddit.title, subreddit_path(p.subreddit, p) %></p>
 <% end %>
