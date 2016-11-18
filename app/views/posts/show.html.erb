@@ -1,5 +1,16 @@
 <p>
     <p><h1> <%= @post.title %> </h1></p>
     <p><%= @post.body %></p>
-  
+
+    <%= form_for [@post, @comment] do |c| %>
+
+        <%= c.text_area :body %>
+        <%= c.submit %>
+    <% end %>
+
+    <% @post.comments.reverse.each_with_index do |c, i| %>
+      <p>
+      <%= i+1 %> <%= c.body %>
+      </p>
+    <% end %>
 </p>
