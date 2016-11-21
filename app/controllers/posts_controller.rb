@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   def index
       @posts = Post.all
       @subreddits = Subreddit.all
+      @subreddit = Subreddit.new
   end
   def new
       @subreddit = Subreddit.find(params[:subreddit_id])

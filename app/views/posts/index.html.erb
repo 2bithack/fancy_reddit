@@ -3,6 +3,12 @@
     <p><%= link_to s.title, s %></p>
 <% end %>
 
+<%= form_for(@subreddit) do |f| %>
+    <p>Create New Subreddit:</p>
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+    <%= f.submit %>
+<% end %>
 
 <h1>Posts</h1>
 <p>Total Posts: <%= @posts.count %></p>
