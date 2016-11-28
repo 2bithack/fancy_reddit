@@ -1,3 +1,13 @@
+<div id="user_header">
+  <% if logged_in? %>
+     <%= link_to 'Logout', session_path('bogus-id'), method: :delete %>
+  <% else %>
+     <%= link_to "Sign Up", signup_path %>
+     <%= link_to "Log In", login_path %>
+  <% end %>
+</div>
+
+
 <h1>Subreddits</h1>
 <% @subreddits.each do |s| %>
     <p><%= link_to s.title, s %></p>
