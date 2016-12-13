@@ -16,4 +16,22 @@ class CommentsController < ApplicationController
     params.require(:comment).permit(:body)
   end
 
+  def destroy
+      @comment = Comment.find(params[:id])
+      @post = Post.find(params[:post_id])
+      @comment.destroy
+      redirect_to @post
+  end
+
+  def edit
+      @comment = Comment.find(params[:id])
+  end
+
+  def update
+      @comment = Comment.find(params[:id])
+      if @comment.update_attributes(comment_params)
+          redirect_to subreddit_post_path(@post.subreddit, @post)
+      end
+  end
+  
 end

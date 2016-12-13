@@ -1,3 +1,21 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.post-box {
+    border: 3px solid black;
+    padding: 10px;
+    margin: 5px;
+}
+
+.post-border {
+    position: relative;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border: 2px solid black;
+    padding: 5px;
+}
+
+.to-the-right {
+    text-align: right;
+    line-height: 100%;
+}

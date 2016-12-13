@@ -1,11 +1,27 @@
 <p>
     <h1><%= @subreddit.title %></h1>
-
-    <h2>Posts</h2>
-    <% @subreddit.posts.each do |p| %>
-        <p><%= link_to p.title, subreddit_post_path(p.subreddit, p) %></p>
-        <p><%= p.body %></p>
+    <% if logged_in? %>
+        <p><%= link_to "New Post", new_subreddit_post_path(@subreddit) %></p>
     <% end %>
+    <div class="post-box">
+        <% @subreddit.posts.each do |p| %>
+        <div class="post-border">
+            <p class ="to-the-right">
+                <% if session[:user_id] == p.user.id %>
+                    <%= link_to "Edit Post", edit_subreddit_post_path(p.subreddit, p) %>
+                    <%= link_to "Delete Post", subreddit_post_path(p.subreddit, p), method: :delete %>
+                <% end %>
+            </p>
+            <p class ="to-the-right">
+                <% if p.updated_at != p.created_at %>
+                    Edited: <%= p.updated_at %>
+                <% end %>
+            </p>
+            <p><%= link_to p.title, subreddit_post_path(p.subreddit, p) %></p>
+            <p><%= p.body %></p>
+            <div class="to-the-right">Created: <%= p.created_at %> by: <%= p.user.email %></div>
 
-    <p><%= link_to "New Post", new_subreddit_post_path(@subreddit) %></p>
+        </div>
+        <% end %>
+    </div>
 </p>

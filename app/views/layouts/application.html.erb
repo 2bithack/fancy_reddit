@@ -1,14 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>FancyReddit</title>
-    <%= csrf_meta_tags %>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <div class="top-bar">
+      <div class="top-bar-title">
+        <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
+          <button class="menu-icon dark" type="button" data-toggle></button>
+        </span>
+        <strong><%= link_to 'theDRUNKENhand', root_path %></strong>
+      </div>
+      <div id="responsive-menu">
+        <div class="top-bar-left">
+          <ul class="dropdown menu" data-dropdown-menu>
+            <li>
+              <a href="<%= subreddits_path %>">Discussions</a>
+              <ul class="menu vertical">
+                  <% Subreddit.all.each do |s| %>
+                      <li><%= link_to s.title, s %></li>
+                  <% end %>
+              </ul>
+            </li>
+            <!-- <li><a href="#">Two</a></li> -->
+            <!-- f<li><a href="#">Three</a></li> -->
+          </ul>
+        </div>
+        <div class="top-bar-right">
+          <ul class="menu">
+              <div id="user_header">
+                <% if logged_in? %>
+                   <%= link_to 'Logout', session_path('bogus-id'), method: :delete %>
+                <% else %>
+                   <%= link_to "Sign Up", signup_path %>
+                   <%= link_to "Log In", login_path %>
+                <% end %>
+              </div>
+            <!-- <li><input type="search" placeholder="Search"></li> -->
+            <!-- <li><button type="button" class="button">Search</button></li> -->
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
   </head>
 
   <body>
-    <%= yield %>
+
+    <div class="row">
+        <%= yield %>
+    </div>
+
   </body>
 </html>

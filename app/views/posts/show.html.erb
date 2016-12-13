@@ -1,16 +1,41 @@
 <p>
+    <p class ="to-the-right">
+        <% if session[:user_id] == @post.user.id %>
+            <%= link_to "Edit Post", edit_subreddit_post_path(@post.subreddit, @post) %>
+            <%= link_to "Delete Post", subreddit_post_path(@post.subreddit, @post), method: :delete %>
+        <% end %>
+    </p>
     <p><h1> <%= @post.title %> </h1></p>
-    <p><%= @post.body %></p>
-
-    <%= form_for [@post, @comment] do |c| %>
-
-        <%= c.text_area :body %>
-        <%= c.submit %>
-    <% end %>
-
-    <% @post.comments.reverse.each_with_index do |c, i| %>
-      <p>
-      <%= i+1 %> <%= c.body %>
-      </p>
+    <div class="post-box">
+        <p><%= @post.body %></p>
+    </div>
+    <p>
+    <% if logged_in? %>
+            <%= form_for [@post, @comment] do |c| %>
+                <%= c.text_area :body %>
+                <%= c.submit %>
+            <% end %>
+    <% else %>
+        <p>Log in to Create Posts</p>
     <% end %>
 </p>
+<%= @post.comments.count %>
+    <% @post.comments.reverse.each do |c| %>
+        <p>
+            <p class ="to-the-right">
+                <% if session[:user_id] == @post.user.id %>
+                    <%= link_to "Edit Comment", edit_subreddit_post_path(c.post, c) %>
+                    <%= link_to "Delete Comment", subreddit_post_path(c.post, c), method: :delete %>
+                <% end %>
+            </p>
+         <%= c.body %>
+
+         <% if @post.comments.count > 0 %>
+            <div class="to-the-right">
+                Created: <%= @comment.created_at %> by: <%= @comment.user.email %>
+            </div>
+        <% else %>
+        <p>No Comments</p>
+        <% end %>
+        </p>
+    <% end %>

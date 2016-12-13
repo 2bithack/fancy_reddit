@@ -1,0 +1,14 @@
+<h1>Discussions</h1>
+<% @subreddits.each do |s| %>
+    <p><%= link_to s.title, s %></p>
+<% end %>
+ <% if logged_in? %>
+    <%= form_for(@subreddit) do |f| %>
+        <p>Create New Subreddit:</p>
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+        <%= f.submit %>
+    <% end %>
+    <% else %>
+    <p>Log in to Create New Subreddit</p>
+<% end %>

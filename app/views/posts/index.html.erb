@@ -1,29 +1,24 @@
-<div id="user_header">
-  <% if logged_in? %>
-     <%= link_to 'Logout', session_path('bogus-id'), method: :delete %>
-  <% else %>
-     <%= link_to "Sign Up", signup_path %>
-     <%= link_to "Log In", login_path %>
-  <% end %>
+<h1>Latest Posts</h1>
+<div class="post-box">
+    <% @posts.reverse.each do |p| %>
+        <div class="post-border">
+            <p class ="to-the-right">
+                <% if session[:user_id] == p.user.id %>
+                    <%= link_to "Edit Post", edit_subreddit_post_path(p.subreddit, p) %>
+                    <%= link_to "Delete Post", subreddit_post_path(p.subreddit, p), method: :delete %>
+                <% end %>
+            </p>
+            <p class ="to-the-right">
+                <% if p.updated_at != p.created_at %>
+                    Edited: <%= p.updated_at %>
+                <% end %>
+            </p>
+            <p class ="to-the-right">
+                Discussion: <%= link_to p.subreddit.title, subreddit_path(p.subreddit, p) %>
+            </p>
+            <p> <%= link_to p.title, subreddit_post_path(p.subreddit, p) %> </p>
+            <p><%= p.body %></p>
+            <div class="to-the-right">Created: <%= p.created_at %> by: <%= p.user.email %></div>
+        </div>
+    <% end %>
 </div>
-
-
-<h1>Subreddits</h1>
-<% @subreddits.each do |s| %>
-    <p><%= link_to s.title, s %></p>
-<% end %>
-
-<%= form_for(@subreddit) do |f| %>
-    <p>Create New Subreddit:</p>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-    <%= f.submit %>
-<% end %>
-
-<h1>Posts</h1>
-<p>Total Posts: <%= @posts.count %></p>
-<% @posts.each do |p| %>
-    <p><%=p.id %>. <%= link_to p.title, subreddit_post_path(p.subreddit, p) %></p>
-    <p><%= p.body %></p>
-    <p> Subreddit: <%= link_to p.subreddit.title, subreddit_path(p.subreddit, p) %></p>
-<% end %>
