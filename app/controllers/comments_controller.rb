@@ -2,7 +2,9 @@ class CommentsController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.new(comment_params)
+    @comment = Comment.new(comment_params)
+    @comment.post = @post
+    @comment.user_id = session[:user_id]
 
     if @comment.save
       redirect_to subreddit_post_path(@post.subreddit, @post)
@@ -11,11 +13,7 @@ class CommentsController < ApplicationController
       flash[:notice] = "Comment could not be saved."
     end
   end
-
-  def comment_params
-    params.require(:comment).permit(:body)
-  end
-
+  
   def destroy
       @comment = Comment.find(params[:id])
       @post = Post.find(params[:post_id])
@@ -33,5 +31,8 @@ class CommentsController < ApplicationController
           redirect_to subreddit_post_path(@post.subreddit, @post)
       end
   end
-  
+private
+  def comment_params
+    params.require(:comment).permit(:body)
+  end
 end

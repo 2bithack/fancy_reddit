@@ -1,8 +1,10 @@
 <p>
-    <h1><%= @subreddit.title %></h1>
-    <% if logged_in? %>
-        <p><%= link_to "New Post", new_subreddit_post_path(@subreddit) %></p>
-    <% end %>
+
+        <h1><p id="title"><%= @subreddit.title %></p></h1>
+        <% if logged_in? %>
+            <p class="to-the-right"><%= link_to "New Post", new_subreddit_post_path(@subreddit) %></p>
+        <% end %>
+
     <div class="post-box">
         <% @subreddit.posts.each do |p| %>
         <div class="post-border">
@@ -17,8 +19,11 @@
                     Edited: <%= p.updated_at %>
                 <% end %>
             </p>
-            <p><%= link_to p.title, subreddit_post_path(p.subreddit, p) %></p>
-            <p><%= p.body %></p>
+            <div class="post-contents">
+                <p><%= link_to p.title, subreddit_post_path(p.subreddit, p) %></p>
+                <p><%= p.body %></p>
+                <%= p.comments.count %> comments
+            </div>
             <div class="to-the-right">Created: <%= p.created_at %> by: <%= p.user.email %></div>
 
         </div>

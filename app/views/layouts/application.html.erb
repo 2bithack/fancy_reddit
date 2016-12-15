@@ -15,15 +15,16 @@
         <div class="top-bar-left">
           <ul class="dropdown menu" data-dropdown-menu>
             <li>
-              <a href="<%= subreddits_path %>">Discussions</a>
+              <a href="<%= subreddits_path %>">Streamers</a>
               <ul class="menu vertical">
                   <% Subreddit.all.each do |s| %>
                       <li><%= link_to s.title, s %></li>
                   <% end %>
               </ul>
             </li>
-            <!-- <li><a href="#">Two</a></li> -->
-            <!-- f<li><a href="#">Three</a></li> -->
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#">Donate</a></li>
           </ul>
         </div>
         <div class="top-bar-right">

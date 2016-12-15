@@ -1,14 +1,15 @@
-<h1>Discussions</h1>
+<h1 id="title">Streamers</h1>
 <% @subreddits.each do |s| %>
-    <p><%= link_to s.title, s %></p>
+    <p class="deck-container"><%= link_to s.title, s %></p>
 <% end %>
- <% if logged_in? %>
-    <%= form_for(@subreddit) do |f| %>
-        <p>Create New Subreddit:</p>
-        <%= f.label :title %>
-        <%= f.text_field :title %>
-        <%= f.submit %>
+<div class ="invisible-border"
+     <% if logged_in? %>
+        <%= form_for(@subreddit) do |f| %>
+            <p>Create New Discussion</p>
+            <%= f.text_field :title %>
+            <%= f.submit %>
+        <% end %>
+        <% else %>
+        <p>Moderator Log in to Create New Discussion</p>
     <% end %>
-    <% else %>
-    <p>Log in to Create New Subreddit</p>
-<% end %>
+</div>

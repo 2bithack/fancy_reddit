@@ -27,10 +27,6 @@ class PostsController < ApplicationController
       @comment = @post.comments.new
   end
 
-  def post_params
-      params.require(:post).permit(:title, :body, :url)
-  end
-
   def destroy
       @post = Post.find(params[:id])
       @subreddit = Subreddit.find(params[:subreddit_id])
@@ -49,5 +45,8 @@ class PostsController < ApplicationController
           redirect_to subreddit_path(@post.subreddit)
       end
   end
-
+private
+def post_params
+    params.require(:post).permit(:title, :body, :url)
+end
 end

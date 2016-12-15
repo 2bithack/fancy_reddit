@@ -8,16 +8,19 @@
                     <%= link_to "Delete Post", subreddit_post_path(p.subreddit, p), method: :delete %>
                 <% end %>
             </p>
-            <p class ="to-the-right">
+            <p class="to-the-right">
                 <% if p.updated_at != p.created_at %>
                     Edited: <%= p.updated_at %>
                 <% end %>
             </p>
-            <p class ="to-the-right">
+            <p class="to-the-right">
                 Discussion: <%= link_to p.subreddit.title, subreddit_path(p.subreddit, p) %>
             </p>
-            <p> <%= link_to p.title, subreddit_post_path(p.subreddit, p) %> </p>
-            <p><%= p.body %></p>
+            <div class="post-contents">
+                <p> <%= link_to p.title, subreddit_post_path(p.subreddit, p) %> </p>
+                <p><%= p.body %></p>
+                <%= p.comments.count %> comments
+            </div>
             <div class="to-the-right">Created: <%= p.created_at %> by: <%= p.user.email %></div>
         </div>
     <% end %>
